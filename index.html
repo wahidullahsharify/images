@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گالری تصاویر</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 40px 0 20px 0;
+    font-size: 2em;
+    color: #333;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.show {
+    display: flex;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .close, .prev, .next {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease;
+  }
+
+  .close { top: 20px; right: 30px; }
+  .prev { top: 50%; left: 30px; transform: translateY(-50%); }
+  .next { top: 50%; right: 30px; transform: translateY(-50%); }
+
+  .close:hover, .prev:hover, .next:hover {
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 600px) {
+    .prev, .next { font-size: 30px; }
+    .close { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Ash Noshad Mazar</h1>
+
+<div class="gallery">
+  <div class="gallery-item"><img src="image/1.jpeg" alt="1"></div>
+  <div class="gallery-item"><img src="image/2.jpeg" alt="2"></div>
+  <div class="gallery-item"><img src="image/3.jpeg" alt="3"></div>
+  <div class="gallery-item"><img src="image/4.jpeg" alt="4"></div>
+  <div class="gallery-item"><img src="image/5.jpeg" alt="5"></div>
+  <div class="gallery-item"><img src="image/6.jpeg" alt="6"></div>
+  <div class="gallery-item"><img src="image/7.jpeg" alt="7"></div>
+  <div class="gallery-item"><img src="image/8.jpeg" alt="8"></div>
+  <div class="gallery-item"><img src="image/9.jpeg" alt="9"></div>
+  <div class="gallery-item"><img src="image/10.jpeg" alt="10"></div>
+  <div class="gallery-item"><img src="image/11.jpeg" alt="11"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="close">&times;</span>
+  <span class="prev" id="prev">&#10094;</span>
+  <img id="lightbox-img" src="" alt="">
+  <span class="next" id="next">&#10095;</span>
+</div>
+
+<script>
+const images = [];
+document.querySelectorAll('.gallery-item img').forEach(img => images.push(img.src));
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+let currentIndex = 0;
+
+function showLightbox(index) {
+  currentIndex = index;
+  lightboxImg.style.opacity = 0;
+  lightboxImg.style.transform = "scale(0.8)";
+  lightbox.classList.add('show');
+  lightboxImg.src = images[currentIndex];
+  setTimeout(() => {
+    lightboxImg.style.opacity = 1;
+    lightboxImg.style.transform = "scale(1)";
+  }, 50);
+}
+
+document.querySelectorAll('.gallery-item img').forEach((img, idx) => {
+  img.addEventListener('click', () => showLightbox(idx));
+});
+
+function hideLightbox() {
+  lightbox.classList.remove('show');
+}
+
+document.getElementById('close').addEventListener('click', hideLightbox);
+
+// بستن مودال با کلیک روی فضای خالی
+lightbox.addEventListener('click', (e) => {
+  if(e.target === lightbox) hideLightbox();
+});
+
+document.getElementById('prev').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  updateLightbox();
+});
+
+document.getElementById('next').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % images.length;
+  updateLightbox();
+});
+
+function updateLightbox() {
+  lightboxImg.style.opacity = 0;
+  lightboxImg.style.transform = "scale(0.8)";
+  setTimeout(() => {
+    lightboxImg.src = images[currentIndex];
+    lightboxImg.style.opacity = 1;
+    lightboxImg.style.transform = "scale(1)";
+  }, 150);
+}
+
+// پشتیبانی از کیبورد
+document.addEventListener('keydown', (e) => {
+  if(lightbox.classList.contains('show')) {
+    if(e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % images.length; updateLightbox(); }
+    else if(e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + images.length) % images.length; updateLightbox(); }
+    else if(e.key === 'Escape') hideLightbox();
+  }
+});
+</script>
+
+</body>
+</html>
