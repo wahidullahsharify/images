@@ -14,10 +14,40 @@
   }
 
   h1 {
-    margin: 40px 0 20px 0;
-    font-size: 2em;
-    color: #333;
-  }
+  margin: 40px 0 20px 0;
+  font-size: 2.8em; /* بزرگ‌تر */
+  font-weight: bold;
+  text-transform: uppercase;
+  color: transparent;
+  background: linear-gradient(270deg, #1a1a1a, #3b0f3f, #6a0dad, #1a1a1a);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: waveGradient 8s ease infinite;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 2px;
+}
+
+/* موج شبیه آب/انرژی */
+@keyframes waveGradient {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Optional: اضافه کردن یک شعاع نور ملایم برای درخشش */
+h1::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(255,255,255,0.05);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
 
   .gallery {
     display: grid;
@@ -122,6 +152,8 @@
   <div class="gallery-item"><img src="image/9.jpeg" alt="9"></div>
   <div class="gallery-item"><img src="image/10.jpeg" alt="10"></div>
   <div class="gallery-item"><img src="image/11.jpeg" alt="11"></div>
+  <div class="gallery-item"><img src="image/12.jpeg" alt="11"></div>
+  <div class="gallery-item"><img src="image/13.jpeg" alt="11"></div>
 </div>
 
 <div class="lightbox" id="lightbox">
