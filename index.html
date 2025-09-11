@@ -6,77 +6,103 @@
 <title>گالری تصاویر</title>
 <style>
   body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Vazirmatn', sans-serif; /* A nice Persian-friendly font */
+    background-color: #e0e0e0; /* Lighter background */
     margin: 0;
     padding: 0;
     text-align: center;
   }
 
   h1 {
-  margin: 40px 0 20px 0;
-  font-size: 2.8em; /* بزرگ‌تر */
-  font-weight: bold;
-  text-transform: uppercase;
-  color: transparent;
-  background: linear-gradient(270deg, #1a1a1a, #3b0f3f, #6a0dad, #1a1a1a);
-  background-size: 800% 800%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: waveGradient 8s ease infinite;
-  position: relative;
-  display: inline-block;
-  letter-spacing: 2px;
-}
+    margin: 40px 0 20px 0;
+    font-size: 3.2em; /* Slightly larger */
+    font-weight: bold;
+    text-transform: uppercase;
+    color: transparent;
+    background: linear-gradient(270deg, #1a1a1a, #3b0f3f, #6a0dad, #1a1a1a);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: waveGradient 8s ease infinite;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 3px; /* More spacing */
+    padding: 5px 15px; /* Add some padding around text */
+    border-radius: 10px;
+  }
 
-/* موج شبیه آب/انرژی */
-@keyframes waveGradient {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 100%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 0%; }
-  100% { background-position: 0% 50%; }
-}
+  @keyframes waveGradient {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 100%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 0%; }
+    100% { background-position: 0% 50%; }
+  }
 
-/* Optional: اضافه کردن یک شعاع نور ملایم برای درخشش */
-h1::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; width: 100%; height: 100%;
-  background: rgba(255,255,255,0.05);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
+  h1::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(255,255,255,0.05);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    border-radius: 10px;
+  }
 
   .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Larger minimum size */
+    gap: 25px; /* More gap */
+    padding: 30px; /* More padding */
+    max-width: 1300px; /* Wider gallery */
     margin: auto;
   }
 
   .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 20px; /* More rounded corners */
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background-color: #ffffff; /* White background for item */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Softer, larger shadow */
+    display: flex; /* Flexbox for image and text */
+    flex-direction: column; /* Stack image and text */
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-8px) scale(1.02); /* Lift and slightly enlarge */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2); /* More prominent shadow on hover */
   }
 
   .gallery-item img {
     width: 100%;
-    height: 200px;
+    height: 200px; /* Slightly taller images */
     object-fit: cover;
     display: block;
     transition: transform 0.3s ease, filter 0.3s ease;
   }
 
   .gallery-item:hover img {
-    transform: scale(1.05);
-    filter: brightness(1.1);
+    transform: scale(1.08); /* More pronounced zoom */
+    filter: brightness(1.05); /* Subtle brightness change */
+  }
+
+  .figure-description {
+    padding: 15px;
+    background-color: #f8f8f8; /* Light grey background for description */
+    text-align: left; /* Align text to the left for English */
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* English font */
+  }
+
+  .figure-description strong {
+    color: #6a0dad; /* Highlight figure number */
+    font-size: 0.9em;
+    display: block; /* Make figure number a block for better spacing */
+    margin-bottom: 5px;
   }
 
   /* Lightbox */
@@ -88,7 +114,7 @@ h1::after {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95); /* Darker background */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -107,53 +133,80 @@ h1::after {
 
   .lightbox img {
     max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    max-height: 85%; /* Slightly more height */
+    border-radius: 15px; /* More rounded */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6); /* Larger, darker shadow */
     transition: transform 0.4s ease, opacity 0.4s ease;
   }
 
   .close, .prev, .next {
     position: absolute;
     color: white;
-    font-size: 40px;
+    font-size: 45px; /* Larger controls */
     cursor: pointer;
     user-select: none;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5); /* Shadow for readability */
   }
 
-  .close { top: 20px; right: 30px; }
-  .prev { top: 50%; left: 30px; transform: translateY(-50%); }
-  .next { top: 50%; right: 30px; transform: translateY(-50%); }
+  .close { top: 25px; right: 35px; }
+  .prev { top: 50%; left: 35px; transform: translateY(-50%); }
+  .next { top: 50%; right: 35px; transform: translateY(-50%); }
 
   .close:hover, .prev:hover, .next:hover {
-    transform: scale(1.2);
+    transform: scale(1.25); /* More pronounced hover effect */
+    color: #ffd700; /* Gold color on hover */
   }
 
-  @media (max-width: 600px) {
-    .prev, .next { font-size: 30px; }
-    .close { font-size: 30px; }
+  @media (max-width: 768px) {
+    .gallery { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  }
+
+  @media (max-width: 480px) {
+    .gallery { grid-template-columns: 1fr; } /* Single column on mobile */
   }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <h1>Ash Noshad Mazar</h1>
 
 <div class="gallery">
-  <div class="gallery-item"><img src="image/1.jpeg" alt="1"></div>
-  <div class="gallery-item"><img src="image/2.jpeg" alt="2"></div>
-  <div class="gallery-item"><img src="image/3.jpeg" alt="3"></div>
-  <div class="gallery-item"><img src="image/4.jpeg" alt="4"></div>
-  <div class="gallery-item"><img src="image/5.jpeg" alt="5"></div>
-  <div class="gallery-item"><img src="image/6.jpeg" alt="6"></div>
-  <div class="gallery-item"><img src="image/7.jpeg" alt="7"></div>
-  <div class="gallery-item"><img src="image/8.jpeg" alt="8"></div>
-  <div class="gallery-item"><img src="image/9.jpeg" alt="9"></div>
-  <div class="gallery-item"><img src="image/10.jpeg" alt="10"></div>
-  <div class="gallery-item"><img src="image/11.jpeg" alt="11"></div>
-  <div class="gallery-item"><img src="image/12.jpeg" alt="11"></div>
-  <div class="gallery-item"><img src="image/13.jpeg" alt="11"></div>
+  <div class="gallery-item">
+    <img src="image/13.jpeg" alt="Image 1">
+    <div class="figure-description">
+      <strong>Figure 1: Client Expresses the company background</strong> September 4, 2025 - Be Be Monira Sadat
+    </div>
+  </div>
+  <div class="gallery-item">
+    <img src="image/11.jpeg" alt="Image 2">
+    <div class="figure-description">
+      <strong>Figure 2: During Producing Ash Workers.</strong> 
+    </div>
+  </div>
+  <div class="gallery-item">
+    <img src="image/5.jpeg" alt="Image 3">
+    <div class="figure-description">
+      <strong>Figure 3: A Sample Of Ash Noshad Mazar</strong>
+    </div>
+  </div>
+  <div class="gallery-item">
+    <img src="image/10.jpeg" alt="Image 4">
+    <div class="figure-description">
+      <strong>Figure 4: The Client Team</strong> 
+    </div>
+  </div>
+
+  <div class="gallery-item"><img src="image/2.jpeg" alt="Image 5"></div>
+  <div class="gallery-item"><img src="image/6.jpeg" alt="Image 6"></div>
+  <div class="gallery-item"><img src="image/7.jpeg" alt="Image 7"></div>
+  <div class="gallery-item"><img src="image/8.jpeg" alt="Image 8"></div>
+  <div class="gallery-item"><img src="image/9.jpeg" alt="Image 9"></div>
+  <div class="gallery-item"><img src="image/4.jpeg" alt="Image 10"></div>
+  <div class="gallery-item"><img src="image/3.jpeg" alt="Image 11"></div>
+  <div class="gallery-item"><img src="image/12.jpeg" alt="Image 12"></div>
+  <div class="gallery-item"><img src="image/1.jpeg" alt="Image 13"></div>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -183,8 +236,8 @@ function showLightbox(index) {
   }, 50);
 }
 
-document.querySelectorAll('.gallery-item img').forEach((img, idx) => {
-  img.addEventListener('click', () => showLightbox(idx));
+document.querySelectorAll('.gallery-item').forEach((item, idx) => {
+  item.addEventListener('click', () => showLightbox(idx));
 });
 
 function hideLightbox() {
@@ -193,7 +246,6 @@ function hideLightbox() {
 
 document.getElementById('close').addEventListener('click', hideLightbox);
 
-// بستن مودال با کلیک روی فضای خالی
 lightbox.addEventListener('click', (e) => {
   if(e.target === lightbox) hideLightbox();
 });
@@ -220,12 +272,17 @@ function updateLightbox() {
   }, 150);
 }
 
-// پشتیبانی از کیبورد
 document.addEventListener('keydown', (e) => {
   if(lightbox.classList.contains('show')) {
-    if(e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % images.length; updateLightbox(); }
-    else if(e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + images.length) % images.length; updateLightbox(); }
-    else if(e.key === 'Escape') hideLightbox();
+    if(e.key === 'ArrowRight') {
+        document.getElementById('next').click();
+    }
+    else if(e.key === 'ArrowLeft') {
+        document.getElementById('prev').click();
+    }
+    else if(e.key === 'Escape') {
+        hideLightbox();
+    }
   }
 });
 </script>
